@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import AddPerson from './components/AddPerson'
+import TableRow from './components/TableRow'
+
+const persons = []
+let count = 0
 
 function App() {
+
+  const [rows, setRows] = useState([])
+
+  function addPerson(firstName, lastName){
+    count++
+    persons.push({firstName, lastName, id: count, key: count})
+    const _rows = persons.map(element => <TableRow {...element} />)
+    setRows(_rows)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <AddPerson addPerson={addPerson} />
+      <table className="table">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>First name</th>
+            <th>Last name</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows}
+        </tbody>
+      </table>
+    </>
   );
 }
 

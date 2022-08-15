@@ -1,10 +1,10 @@
-import { allRandom } from 'human-names'
+import { useDispatch } from "react-redux"
 
 export default function AddPerson(props){
 
+    const dispatch = useDispatch();
+
     return (
-        <p className="text-end">
-            <button className="btn btn-primary" onClick={() => props.addPerson(allRandom(), "Jackson")}>Добавить</button>
-        </p>
+        <button className="btn btn-primary" onClick={() => dispatch({type: 'persons/addPerson'})}>Добавить</button>
     )
 }

@@ -1,39 +1,19 @@
-import { findAllByDisplayValue } from '@testing-library/react'
-import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux';
 import AddPerson from './components/AddPerson'
+import SortPersons from './components/SortPersons'
 import TableRow from './components/TableRow'
 
-const persons = []
-let count = 0
-let isLoaded = false
 
 function App() {
 
-  const [rows, setRows] = useState([])
-
-  useEffect(() => {
-    fetch('persons.json')
-      .then(res => res.json())
-      .then(arr => {
-        if(isLoaded) return
-        arr.forEach(el => {
-          const {firstName, lastName} = el
-          addPerson(firstName, lastName)
-        })
-        isLoaded = true
-      })
-  }, [])
-
-  function addPerson(firstName, lastName){
-    count++
-    persons.push({firstName, lastName, id: count, key: count})
-    const _rows = persons.map(element => <TableRow {...element} />)
-    setRows(_rows)
-  }
+  const persons = useSelector(state => state.persons)
 
   return (
     <>
-      <AddPerson addPerson={addPerson} />
+      <p className="text-end" style={{marginTop: "2rem"}}>
+        <AddPerson />
+        <SortPersons />
+      </p>
       <table className="table">
         <thead>
           <tr>
@@ -43,7 +23,7 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {rows}
+          {persons.map(el => <TableRow {...el} />)}
         </tbody>
       </table>
     </>

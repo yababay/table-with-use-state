@@ -5,6 +5,6 @@ export default function AddPerson(props){
     const dispatch = useDispatch();
 
     return (
-        <button className="btn btn-primary" onClick={() => dispatch({type: 'persons/addPerson'})}>Добавить</button>
+        <button className="btn btn-primary" onClick={() => dispatch({type: 'persons/addPerson'})} style={{marginLeft: '2rem'}}>Добавить</button>
     )
 }
